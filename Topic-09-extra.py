@@ -1,8 +1,26 @@
 
+#функція обробки помилок
+
+def input_error(func):
+    # Декоратор для обробки помилок введення користувача.
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except KeyError:
+            return "Enter a valid name"  # Обробляє помилку відсутності ключа.
+        except ValueError:
+            return "Invalid input. Please provide valid name and phone"  # Обробляє неправильний формат вводу.
+        except IndexError:
+            return "Invalid input format. Use 'add', 'change', or 'phone' followed by name and phone"  # Обробляє неправильний формат команди.
+    return wrapper
+
+
+@input_error
 def add_contact(contacts, name, phone):
     # Додаємо контакт у словник
     contacts[name] = phone
 
+@input_error
 def change_phone(contacts, name, new_phone):
     # Змінюємо номер телефону для існуючого контакту
     if name in contacts:
@@ -10,6 +28,7 @@ def change_phone(contacts, name, new_phone):
     else:
         raise ValueError(f"Contact '{name}' not found")
 
+@input_error
 def get_phone(contacts, name):
     # Отримуємо номер телефону за ім'ям контакту
     if name in contacts:
