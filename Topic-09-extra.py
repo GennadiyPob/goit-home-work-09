@@ -7,11 +7,11 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except KeyError:
-            return "Enter a valid name"  # Обробляє помилку відсутності ключа.
+            return "Enter a correct name"  # Обробляє помилку відсутності ключа.
         except ValueError:
-            return "Invalid input. Please provide valid name and phone"  # Обробляє неправильний формат вводу.
+            return "Invalid input. Enter please correct name and phone"  # Обробляє неправильний формат вводу.
         except IndexError:
-            return "Invalid input format. Use 'add', 'change', or 'phone' followed by name and phone"  # Обробляє неправильний формат команди.
+            return "Invalid input format. Use 'add', 'change', or 'phone' before entered data"  # Обробляє неправильний формат команди.
     return wrapper
 
 
